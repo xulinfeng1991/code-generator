@@ -1,0 +1,2 @@
+# code_generator
+简易代码生成器，基于mybatis和mysql，可根据模板生成各种形式的文件，目前模板配置模式还比较死板
