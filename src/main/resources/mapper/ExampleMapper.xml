@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<!-- Created by AutoGenerateCode on 2017-08-14 14:58:47. -->
+<mapper namespace="com.xujiahong.develophelper.ExampleDao">
+	
+	<resultMap id="BaseResultMap" type="com.xujiahong.develophelper.Example">
+		<id column="example_id" property="exampleId"/>
+		<result column="string_value" property="stringValue"/>
+		<result column="date_value" property="dateValue"/>
+		<result column="time_value" property="timeValue"/>
+	</resultMap>
+
+	<sql id="base_columns">
+		example_id,string_value,date_value,time_value
+	</sql>
+
+	<sql id="base_where">
+		<if test="exampleId!=null">and example_id=#{exampleId}</if>
+		<if test="stringValue!=null">and string_value=#{stringValue}</if>
+		<if test="dateValue!=null">and date_value=#{dateValue}</if>
+		<if test="timeValue!=null">and time_value=#{timeValue}</if>
+	</sql>
+	
+	<!--====================【增】====================-->
+
+	<insert id="insert" parameterType="com.xujiahong.develophelper.Example" useGeneratedKeys="true" keyProperty="exampleId">
+		insert into example (
+			string_value,
+			date_value,
+			time_value
+		) values (
+			#{stringValue},
+			#{dateValue},
+			#{timeValue}
+		)
+	</insert>
+	
+	<!--====================【删】====================-->
+
+	<delete id="delete" parameterType="Long">
+		delete from example where example_id=#{value}
+	</delete>
+	
+	<!--====================【改】====================-->
+
+	<update id="update" parameterType="com.xujiahong.develophelper.Example">
+		update example
+		<set>
+			<if test="exampleId!=null"> example_id=#{exampleId},</if>
+			<if test="stringValue!=null"> string_value=#{stringValue},</if>
+			<if test="dateValue!=null"> date_value=#{dateValue},</if>
+			<if test="timeValue!=null"> time_value=#{timeValue},</if>
+			example_id=#{exampleId}
+		</set>
+		where example_id=#{exampleId}
+	</update>
+	
+	<!--====================【查】====================-->
+
+	<select id="detail" parameterType="Long" resultMap="BaseResultMap">
+		select * from example where example_id=#{value}
+	</select>
+	
+	<select id="list" parameterType="com.xujiahong.develophelper.Example" resultMap="BaseResultMap">
+		select * from example
+		<where>
+			<include refid="base_where"/>
+		</where>
+		order by example_id desc
+	</select>
+
+
+</mapper>
