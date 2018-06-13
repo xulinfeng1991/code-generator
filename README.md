@@ -4,9 +4,10 @@
 
 方便本人在项目中快速生成（稳定可靠的）通用的代码文件
 包括但不限于
--POJO
--mapper
--service
--controller
--json数据文件
--非mysql的数据库DDL文件
+
+ 1. POJO
+ 2. mapper
+ 3. service
+ 4. controller
+ 5. json数据文件
+ 6. 非mysql的数据库DDL文件
