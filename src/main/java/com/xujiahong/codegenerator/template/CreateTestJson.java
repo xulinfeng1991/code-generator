@@ -44,6 +44,6 @@ public class CreateTestJson {
 
         //写入文件
         ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".json", codeBuffer);
-        System.out.println("=====DDL.sql build success=====");
+        System.out.println("=====test.json build success=====");
     }
 }

@@ -15,6 +15,7 @@ public class XParseType {
         //常用
         typeMap.put("INT", "Integer");
         typeMap.put("BIGINT", "Long");
+        typeMap.put("DOUBLE", "Long");
         typeMap.put("VARCHAR", "String");
         typeMap.put("DATE", "java.util.Date");
         typeMap.put("DATETIME", "java.util.Date");
@@ -23,25 +24,7 @@ public class XParseType {
         //其他
         typeMap.put("TINYINT", "Integer");
         typeMap.put("TEXT", "String");
-
-//        typeMap.put("binary","");
-//        typeMap.put("bit","");
-//        typeMap.put("blob","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-//        typeMap.put("","");
-
-
+        typeMap.put("LONGTEXT", "String");
     }
 
     /**

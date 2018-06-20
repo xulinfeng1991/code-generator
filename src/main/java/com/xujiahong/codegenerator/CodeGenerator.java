@@ -50,20 +50,25 @@ public class CodeGenerator {
 
         Map<String,String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("drug_web_flow","监测网站流水");
+        map.put("tbl_subjectmatter","a");
+        map.put("tbl_subjectmatter_car","a");
+        map.put("tbl_subjectmatter_file","a");
+        map.put("tbl_subjectmatter_house","a");
+        map.put("tbl_subjectmatter_configuration","a");
+        map.put("tbl_subjectmatter_reservationtime","a");
 
         Set<String> set = map.keySet();
         for(String key : set){
-            CreatePostgreDDL.createDDL(getTable(key,map.get(key)));
             CreateTestJson.createJson(getTable(key,map.get(key)));
-            //单表操作
-            XTable xTable = getTable(key,map.get(key));
-            createPo(xTable);
-            try {
-                createFile(xTable);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+//            CreatePostgreDDL.createDDL(getTable(key,map.get(key)));
+//            //单表操作
+//            XTable xTable = getTable(key,map.get(key));
+//            createPo(xTable);
+//            try {
+//                createFile(xTable);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
         }
 
         session.close();
@@ -185,7 +190,7 @@ public class CodeGenerator {
      * 获取表信息
      *
      * @param tableName
-     * @param pojoName
+     * @param chName
      * @return XTable
      */
     public static XTable getTable(String tableName, String chName) {
