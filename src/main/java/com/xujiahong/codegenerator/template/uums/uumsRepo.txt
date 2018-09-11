@@ -1,0 +1,7 @@
+package cn.csti.www.resource.data.repo;
+
+import cn.csti.www.resource.data.model.【xjh-objectName】;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface 【xjh-objectName】Repo extends JpaRepository<【xjh-objectName】, Long> {
+}

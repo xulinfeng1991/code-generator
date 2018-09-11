@@ -2,13 +2,11 @@ package com.xujiahong.codegenerator;
 
 import com.xujiahong.codegenerator.dao.CodeGenerateDao;
 import com.xujiahong.codegenerator.entity.XColumn;
-import com.xujiahong.codegenerator.template.CreatePostgreDDL;
-import com.xujiahong.codegenerator.template.CreateTestJson;
 import com.xujiahong.codegenerator.tools.XParseName;
 import com.xujiahong.codegenerator.tools.XParseType;
 import com.xujiahong.codegenerator.entity.XTable;
 import com.xujiahong.codegenerator.tools.ParsecFileTools;
-import com.xujiahong.codegenerator.template.XProjectHubble;
+import com.xujiahong.codegenerator.template.XParseTemplate;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -50,47 +48,44 @@ public class CodeGenerator {
 
         Map<String,String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("tbl_subjectmatter","a");
-        map.put("tbl_subjectmatter_car","a");
-        map.put("tbl_subjectmatter_file","a");
-        map.put("tbl_subjectmatter_house","a");
-        map.put("tbl_subjectmatter_configuration","a");
-        map.put("tbl_subjectmatter_reservationtime","a");
+        map.put("api_developer_doc","开发者拥有的文档（关系表）");
+//        map.put("api_doc","接口文档主表");
+//        map.put("api_doc_info","接口文档信息表");
+//        map.put("api_developer","开发者");
 
         Set<String> set = map.keySet();
         for(String key : set){
-            CreateTestJson.createJson(getTable(key,map.get(key)));
+//            CreateTestJson.createJson(getTable(key,map.get(key)));
 //            CreatePostgreDDL.createDDL(getTable(key,map.get(key)));
-//            //单表操作
-//            XTable xTable = getTable(key,map.get(key));
-//            createPo(xTable);
-//            try {
-//                createFile(xTable);
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
+            //单表操作
+            XTable xTable = getTable(key,map.get(key));
+            createPo(xTable);
+            try {
+                createFile(xTable);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         session.close();
     }
 
     public static void createFile(XTable xTable) throws Exception{
-        StringBuffer mapperBuffer = scan("hubbleMapper.txt",xTable);
-        StringBuffer serviceBuffer = scan("hubbleService.txt",xTable);
-        StringBuffer controllerBuffer = scan("hubbleController.txt",xTable);
+        StringBuffer serviceBuffer = scan("uumsDbService.txt",xTable);
+        StringBuffer serviceImplBuffer = scan("uumsDbServiceImpl.txt",xTable);
+        StringBuffer repoBuffer = scan("uumsRepo.txt",xTable);
 
         //写入文件
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", mapperBuffer);
-        System.out.println("=====Mapper build success=====");
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Service.java", serviceBuffer);
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "DbService.java", serviceBuffer);
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "DbServiceImpl.java", serviceImplBuffer);
         System.out.println("=====Service build success=====");
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Controller.java", controllerBuffer);
-        System.out.println("=====Controller build success=====");
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Repo.java", repoBuffer);
+        System.out.println("=====Repo build success=====");
     }
 
     public static StringBuffer scan(String path,XTable xTable) throws Exception{
 
-        String filePath = "src/main/java/com/xujiahong/codegenerator/template/"+path;
+        String filePath = "src/main/java/com/xujiahong/codegenerator/template/uums/"+path;
 
 //        System.out.println(new File(filePath).getAbsolutePath());
         StringBuffer fileBuffer = new StringBuffer();
@@ -102,7 +97,7 @@ public class CodeGenerator {
         while ((lineTxt = br.readLine()) != null) {
 
             if(lineTxt.contains("【xjh-")){
-                lineTxt = XProjectHubble.parse(lineTxt,xTable);
+                lineTxt = XParseTemplate.parse(lineTxt,xTable);
             }
             fileBuffer.append(lineTxt+"\n");
         }
@@ -175,7 +170,7 @@ public class CodeGenerator {
                     xTable.getChName()+"\")\n");
         }
 
-        codeBuffer.append("public class " + xTable.getPojoName() + " extends BaseEntity{");
+        codeBuffer.append("public class " + xTable.getPojoName() + " {");
         codeBuffer.append(fieldBuffer);
         codeBuffer.append(getterAndSetterBuffer);
         codeBuffer.append("}");

@@ -16,12 +16,12 @@ import java.util.List;
  * @author xujiahong
  * @date 2018/4/25
  */
-public class XProjectHubble {
+public class XParseTemplate {
 
     /**
-     * 【xjh-chName】
-     * 【xjh-objectName】
-     * 【xjh-lower-objectName】
+     * 【xjh-chName】模块中文名称
+     * 【xjh-objectName】对象名称
+     * 【xjh-lower-objectName】首字母小写的，对象名称
      * 【xjh-name】
      * 【xjh-date】
      * 【xjh-tableName】
