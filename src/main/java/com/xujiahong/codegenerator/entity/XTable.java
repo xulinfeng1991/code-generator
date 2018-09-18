@@ -1,5 +1,6 @@
 package com.xujiahong.codegenerator.entity;
 
+import com.xujiahong.codegenerator.Config;
 import com.xujiahong.codegenerator.tools.XParseName;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class XTable {
 
     public XTable(String tableName, String chName, List<XColumn> columns) {
         this.tableName = tableName;
-        this.pojoName = XParseName.toUpperCase(XParseName.parseNameToCamel(tableName));
+        this.pojoName = XParseName.toUpperCase(XParseName.parseNameToCamel(tableName.replace(Config.TABLE_PROFIX,"")));
         this.chName = chName;
         this.columns = columns;
     }

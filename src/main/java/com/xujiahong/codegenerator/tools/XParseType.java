@@ -17,9 +17,9 @@ public class XParseType {
         typeMap.put("BIGINT", "Long");
         typeMap.put("DOUBLE", "Long");
         typeMap.put("VARCHAR", "String");
-        typeMap.put("DATE", "java.util.Date");
-        typeMap.put("DATETIME", "java.util.Date");
-        typeMap.put("TIMESTAMP", "java.sql.Timestamp");
+        typeMap.put("DATE", "LocalDateTime");
+        typeMap.put("DATETIME", "LocalDateTime");
+        typeMap.put("TIMESTAMP", "LocalDateTime");
 
         //其他
         typeMap.put("TINYINT", "Integer");

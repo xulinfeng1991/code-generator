@@ -5,6 +5,8 @@ import com.xujiahong.codegenerator.entity.XColumn;
 import com.xujiahong.codegenerator.entity.XTable;
 import com.xujiahong.codegenerator.tools.ParsecFileTools;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +33,9 @@ public class CreateTestJson {
                     codeBuffer.append("\""+column.getJavaFieldName()+"\":"+0L);
                 }else if(column.getJavaFieldType().equals("String")){
                     codeBuffer.append("\""+column.getJavaFieldName()+"\":\"string\"");
+                }else if(column.getJavaFieldType().equals("java.util.Date")){
+                    String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                    codeBuffer.append("\""+column.getJavaFieldName()+"\":\""+now+"\"");
                 }else{
                     codeBuffer.append("\""+column.getJavaFieldName()+"\":\""+column.getJavaFieldType()+"\"");
                 }

@@ -2,6 +2,7 @@ package com.xujiahong.codegenerator;
 
 import com.xujiahong.codegenerator.dao.CodeGenerateDao;
 import com.xujiahong.codegenerator.entity.XColumn;
+import com.xujiahong.codegenerator.template.CreateTestJson;
 import com.xujiahong.codegenerator.tools.XParseName;
 import com.xujiahong.codegenerator.tools.XParseType;
 import com.xujiahong.codegenerator.entity.XTable;
@@ -48,19 +49,17 @@ public class CodeGenerator {
 
         Map<String,String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("api_developer_doc","开发者拥有的文档（关系表）");
-//        map.put("api_doc","接口文档主表");
-//        map.put("api_doc_info","接口文档信息表");
-//        map.put("api_developer","开发者");
+        map.put("tbl_sys_user","用户");
+        map.put("tbl_sys_role","角色");
+        map.put("tbl_sys_menu","菜单");
+        map.put("tbl_sys_role_menu","角色菜单关联表");
 
         Set<String> set = map.keySet();
         for(String key : set){
-//            CreateTestJson.createJson(getTable(key,map.get(key)));
-//            CreatePostgreDDL.createDDL(getTable(key,map.get(key)));
             //单表操作
             XTable xTable = getTable(key,map.get(key));
-            createPo(xTable);
             try {
+                CreateTestJson.createJson(xTable);
                 createFile(xTable);
             }catch (Exception e){
                 e.printStackTrace();
@@ -71,23 +70,15 @@ public class CodeGenerator {
     }
 
     public static void createFile(XTable xTable) throws Exception{
-        StringBuffer serviceBuffer = scan("uumsDbService.txt",xTable);
-        StringBuffer serviceImplBuffer = scan("uumsDbServiceImpl.txt",xTable);
-        StringBuffer repoBuffer = scan("uumsRepo.txt",xTable);
 
-        //写入文件
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "DbService.java", serviceBuffer);
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "DbServiceImpl.java", serviceImplBuffer);
-        System.out.println("=====Service build success=====");
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Repo.java", repoBuffer);
-        System.out.println("=====Repo build success=====");
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", scan("parsec/POJO.txt",xTable));
+        System.out.println("=====POJO build success=====");
     }
 
     public static StringBuffer scan(String path,XTable xTable) throws Exception{
 
-        String filePath = "src/main/java/com/xujiahong/codegenerator/template/uums/"+path;
+        String filePath = "src/main/java/com/xujiahong/codegenerator/template/"+path;
 
-//        System.out.println(new File(filePath).getAbsolutePath());
         StringBuffer fileBuffer = new StringBuffer();
 
         BufferedReader br = new BufferedReader(new InputStreamReader

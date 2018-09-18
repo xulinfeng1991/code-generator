@@ -65,6 +65,14 @@ public class XColumn {
     }
 
     public String getComment() {
+        if(comment==null || "".equals(comment)){
+            if("createTime".equals(this.javaFieldName)){
+                return "创建时间";
+            }
+            if("updateTime".equals(this.javaFieldName)){
+                return "更新时间";
+            }
+        }
         return comment;
     }
 

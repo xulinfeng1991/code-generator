@@ -19,6 +19,8 @@ import java.util.List;
 public class XParseTemplate {
 
     /**
+     * 【xjh-package】
+     * 【xjh-loopfields】
      * 【xjh-chName】模块中文名称
      * 【xjh-objectName】对象名称
      * 【xjh-lower-objectName】首字母小写的，对象名称
@@ -36,6 +38,9 @@ public class XParseTemplate {
      * @return
      */
     public static String parse(String lineTxt,XTable xTable){
+        if(lineTxt.contains("【xjh-package】")){
+            lineTxt = lineTxt.replaceAll("【xjh-package】","package " + Config.PO_PACKAGE + ";");
+        }
         if(lineTxt.contains("【xjh-chName】")){
             lineTxt = lineTxt.replaceAll("【xjh-chName】",xTable.getChName());
         }
@@ -61,10 +66,19 @@ public class XParseTemplate {
             String loopSelect = "";
             String loopResult = "";
             String loopSwagger = "";
+            StringBuffer fieldBuffer = new StringBuffer();//field
             List<XColumn> columns = xTable.getColumns();
             if(columns!=null && columns.size()>0){
                 for (int i=0;i<columns.size();i++) {
                     XColumn column = columns.get(i);
+
+
+                    fieldBuffer.append("\t/**\n");
+                    fieldBuffer.append("\t * "+column.getComment()+"\n");
+                    fieldBuffer.append("\t */\n");
+                    fieldBuffer.append("\tprivate " + column.getJavaFieldType() + " " + column.getJavaFieldName() + ";\n");
+
+
                     //非主键字段（id字段较为特殊，都是模板中写死的，不加入遍历）
                     if (!column.getDbFieldName().equals(Config.TABLE_ID)) {
                         //最后一个字段，字符串中间少逗号
@@ -109,6 +123,9 @@ public class XParseTemplate {
                 if (loopSwagger.charAt(loopSwagger.length() - 2) == ',') {
                     loopSwagger = loopSwagger.substring(0, loopSwagger.length() - 2);
                 }
+            }
+            if(lineTxt.contains("【xjh-loopfields】")){
+                lineTxt = lineTxt.replaceAll("【xjh-loopfields】",fieldBuffer.toString());
             }
             if(lineTxt.contains("【xjh-loopInsert1】")){
                 lineTxt = lineTxt.replaceAll("【xjh-loopInsert1】",loopInsert1);
