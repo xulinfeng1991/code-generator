@@ -1,4 +1,4 @@
-package com.xujiahong.codegenerator.template;
+package com.xujiahong.codegenerator.old;
 
 import com.xujiahong.codegenerator.Config;
 import com.xujiahong.codegenerator.entity.XColumn;
@@ -16,10 +16,9 @@ import java.util.List;
  * @author xujiahong
  * @date 2018/4/25
  */
-public class XParseTemplate {
+public class XParseTemplate1 {
 
     /**
-     * 【xjh-package】
      * 【xjh-loopfields】
      * 【xjh-chName】模块中文名称
      * 【xjh-objectName】对象名称
@@ -38,9 +37,6 @@ public class XParseTemplate {
      * @return
      */
     public static String parse(String lineTxt,XTable xTable){
-        if(lineTxt.contains("【xjh-package】")){
-            lineTxt = lineTxt.replaceAll("【xjh-package】","package " + Config.PO_PACKAGE + ";");
-        }
         if(lineTxt.contains("【xjh-chName】")){
             lineTxt = lineTxt.replaceAll("【xjh-chName】",xTable.getChName());
         }

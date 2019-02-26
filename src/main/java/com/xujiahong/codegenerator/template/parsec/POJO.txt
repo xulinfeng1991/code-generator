@@ -1,4 +1,4 @@
-【xjh-package】
+com.parsec.universal.po
 
 import com.parsec.universal.dao.annot.ParsecTable;
 import com.parsec.universal.dao.model.BaseModel;

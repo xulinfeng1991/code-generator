@@ -2,12 +2,11 @@ package com.xujiahong.codegenerator;
 
 import com.xujiahong.codegenerator.dao.CodeGenerateDao;
 import com.xujiahong.codegenerator.entity.XColumn;
-import com.xujiahong.codegenerator.template.CreateTestJson;
-import com.xujiahong.codegenerator.tools.XParseName;
-import com.xujiahong.codegenerator.tools.XParseType;
 import com.xujiahong.codegenerator.entity.XTable;
 import com.xujiahong.codegenerator.tools.ParsecFileTools;
-import com.xujiahong.codegenerator.template.XParseTemplate;
+import com.xujiahong.codegenerator.tools.XParseName;
+import com.xujiahong.codegenerator.tools.XParseTemplate;
+import com.xujiahong.codegenerator.tools.XParseType;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -49,17 +48,17 @@ public class CodeGenerator {
 
         Map<String,String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("tbl_sys_user","用户");
-        map.put("tbl_sys_role","角色");
-        map.put("tbl_sys_menu","菜单");
-        map.put("tbl_sys_role_menu","角色菜单关联表");
+//        map.put("tbl_sys_user","用户");
+//        map.put("tbl_sys_role","角色");
+        map.put("tbl_project","需求");
+        map.put("tbl_project_flow","需求进度");
 
         Set<String> set = map.keySet();
         for(String key : set){
             //单表操作
             XTable xTable = getTable(key,map.get(key));
             try {
-                CreateTestJson.createJson(xTable);
+//                CreateTestJson.createJson(xTable);
                 createFile(xTable);
             }catch (Exception e){
                 e.printStackTrace();
@@ -71,8 +70,8 @@ public class CodeGenerator {
 
     public static void createFile(XTable xTable) throws Exception{
 
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", scan("parsec/POJO.txt",xTable));
-        System.out.println("=====POJO build success=====");
+        createPo(xTable);
+//        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", scan("parsec/POJO.txt",xTable));
     }
 
     public static StringBuffer scan(String path,XTable xTable) throws Exception{
@@ -87,7 +86,7 @@ public class CodeGenerator {
         String lineTxt = null;
         while ((lineTxt = br.readLine()) != null) {
 
-            if(lineTxt.contains("【xjh-")){
+            if(lineTxt.contains(XParseTemplate.TemplateItem.TEMPLATE_ITEM_PREFIX)){
                 lineTxt = XParseTemplate.parse(lineTxt,xTable);
             }
             fileBuffer.append(lineTxt+"\n");

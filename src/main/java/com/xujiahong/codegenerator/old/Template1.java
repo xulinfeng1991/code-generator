@@ -1,4 +1,4 @@
-package com.xujiahong.codegenerator.template;
+package com.xujiahong.codegenerator.old;
 
 import com.xujiahong.codegenerator.Config;
 import com.xujiahong.codegenerator.entity.XColumn;
@@ -131,7 +131,7 @@ public class Template1 {
         String now = sdf.format(new Date());
         sqlBuffer.append("\n<!-- Created by AutoGenerateCode on " + now + ". -->\n");
         sqlBuffer.append("<!-- Author " + Config.AUTHOR + " -->\n");
-        sqlBuffer.append("<mapper namespace=\"" + Config.DAO_PACKAGE + "." + xTable.getPojoName() + "Dao" + "\">\n\t\n");
+        sqlBuffer.append("<mapper namespace=\"" + Config.PO_PACKAGE + "." + xTable.getPojoName() + "Dao" + "\">\n\t\n");
 
         sqlBuffer.append(resultMapBuffer);
         sqlBuffer.append(baseColumnsBuffer);
@@ -193,7 +193,7 @@ public class Template1 {
 
 
         //dao接口代码
-        daoBuffer.append("package " + Config.DAO_PACKAGE + ";\n\n");
+        daoBuffer.append("package " + Config.PO_PACKAGE + ";\n\n");
         daoBuffer.append("import " + Config.PO_PACKAGE + "." + xTable.getPojoName() + ";\n");
 //        daoBuffer.append("import org.apache.ibatis.annotations.Mapper;\n\n");
         daoBuffer.append("import java.util.List;\n\n");
