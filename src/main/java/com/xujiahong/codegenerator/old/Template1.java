@@ -58,7 +58,7 @@ public class Template1 {
             getterAndSetterBuffer.append("\t\n");
         }
 
-        codeBuffer.append("package " + Config.PO_PACKAGE + ";\n\n");
+        codeBuffer.append("package " + Config.ENTITY_PACKAGE + ";\n\n");
         codeBuffer.append(classCommentBuffer);
         codeBuffer.append("public class " + xTable.getPojoName() + "{");
         codeBuffer.append(fieldBuffer);
@@ -85,7 +85,7 @@ public class Template1 {
         StringBuffer updateBuffer = new StringBuffer();//update_sqls
 
         //别名
-        String objName = Config.PO_PACKAGE + "." + xTable.getPojoName();
+        String objName = Config.ENTITY_PACKAGE + "." + xTable.getPojoName();
 
         String idColumnJavaName = XParseName.parseNameToCamel(Config.TABLE_ID);
         String idColumnJavaType = xTable.getIdColumnJavaType(idColumnJavaName);
@@ -131,7 +131,7 @@ public class Template1 {
         String now = sdf.format(new Date());
         sqlBuffer.append("\n<!-- Created by AutoGenerateCode on " + now + ". -->\n");
         sqlBuffer.append("<!-- Author " + Config.AUTHOR + " -->\n");
-        sqlBuffer.append("<mapper namespace=\"" + Config.PO_PACKAGE + "." + xTable.getPojoName() + "Dao" + "\">\n\t\n");
+        sqlBuffer.append("<mapper namespace=\"" + Config.ENTITY_PACKAGE + "." + xTable.getPojoName() + "Dao" + "\">\n\t\n");
 
         sqlBuffer.append(resultMapBuffer);
         sqlBuffer.append(baseColumnsBuffer);
@@ -193,8 +193,8 @@ public class Template1 {
 
 
         //dao接口代码
-        daoBuffer.append("package " + Config.PO_PACKAGE + ";\n\n");
-        daoBuffer.append("import " + Config.PO_PACKAGE + "." + xTable.getPojoName() + ";\n");
+        daoBuffer.append("package " + Config.ENTITY_PACKAGE + ";\n\n");
+        daoBuffer.append("import " + Config.ENTITY_PACKAGE + "." + xTable.getPojoName() + ";\n");
 //        daoBuffer.append("import org.apache.ibatis.annotations.Mapper;\n\n");
         daoBuffer.append("import java.util.List;\n\n");
 

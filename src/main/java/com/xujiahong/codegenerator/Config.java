@@ -10,7 +10,12 @@ public class Config {
 
 
     //肯定要改的======================
-    public static final String PO_PACKAGE = "com.parsec.po";//PO文件单独生成
+    public static final String BASE_PACKAGE = "com.parsec.ceres";//项目基础包路径
+    public static final String ENTITY_PACKAGE = BASE_PACKAGE+".entity";//实体包路径
+    public static final String MAPPER_PACKAGE = BASE_PACKAGE+".mapper";//Mapper包路径
+    public static final String CONTROLLER_PACKAGE = BASE_PACKAGE+".controller";//控制器包路径
+    public static final String SERVICE_PACKAGE = BASE_PACKAGE+".service";//Service包路径
+
     public static final String AUTHOR = "xujiahong";//开发者名称，生成注释用
     /**
      * 生成文件存放路径

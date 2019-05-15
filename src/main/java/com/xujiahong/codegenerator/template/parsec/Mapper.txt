@@ -1,0 +1,9 @@
+package 【PARSEC_MAPPER_PACKAGE】;
+
+import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
+import com.parsec.universal.dao.TKMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface 【PARSEC_OBJECT_NAME】Mapper extends TKMapper<【PARSEC_OBJECT_NAME】> {
+}

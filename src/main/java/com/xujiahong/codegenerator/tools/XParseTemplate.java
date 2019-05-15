@@ -4,6 +4,10 @@ import com.xujiahong.codegenerator.Config;
 import com.xujiahong.codegenerator.entity.XColumn;
 import com.xujiahong.codegenerator.entity.XTable;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,11 +21,59 @@ import java.util.List;
 public class XParseTemplate {
 
     /**
+     * 扫描模板，生成对应的文件
+     * @param path
+     * @param xTable
+     * @return
+     * @throws Exception
+     */
+    public static StringBuffer scan(String path, XTable xTable) throws Exception {
+
+        String filePath = "src/main/java/com/xujiahong/codegenerator/template/" + path;
+
+        StringBuffer fileBuffer = new StringBuffer();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader
+                (new FileInputStream(new File(filePath)), "UTF-8"));
+
+        String lineTxt = null;
+        while ((lineTxt = br.readLine()) != null) {
+
+            if (lineTxt.contains(TemplateItem.TEMPLATE_ITEM_PREFIX)) {
+                lineTxt = parse(lineTxt, xTable);
+            }
+            fileBuffer.append(lineTxt + "\n");
+        }
+        return fileBuffer;
+    }
+
+    /**
      * @param lineTxt
      * @param xTable
      * @return
      */
     public static String parse(String lineTxt, XTable xTable){
+
+        /*各种包名解析*/
+        if(lineTxt.contains(TemplateItem.PARSEC_ENTITY_PACKAGE)){
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_ENTITY_PACKAGE,Config.ENTITY_PACKAGE);
+        }
+        if(lineTxt.contains(TemplateItem.PARSEC_MAPPER_PACKAGE)){
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_MAPPER_PACKAGE,Config.MAPPER_PACKAGE);
+        }
+        if(lineTxt.contains(TemplateItem.PARSEC_CONTROLLER_PACKAGE)){
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_CONTROLLER_PACKAGE,Config.CONTROLLER_PACKAGE);
+        }
+        if(lineTxt.contains(TemplateItem.PARSEC_SERVICE_PACKAGE)){
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_SERVICE_PACKAGE,Config.SERVICE_PACKAGE);
+        }
+
+
+        if(lineTxt.contains(TemplateItem.PARSEC_USER_NAME)){
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_USER_NAME, Config.AUTHOR);
+        }
+
+
         if(lineTxt.contains(TemplateItem.PARSEC_OBJECT_CH_NAME)){
             lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_OBJECT_CH_NAME,xTable.getChName());
         }
@@ -30,9 +82,6 @@ public class XParseTemplate {
         }
         if(lineTxt.contains(TemplateItem.PARSEC_LOWER_OBJECT_NAME)){
             lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_LOWER_OBJECT_NAME,XParseName.toLowerCase(xTable.getPojoName()));
-        }
-        if(lineTxt.contains(TemplateItem.PARSEC_USER_NAME)){
-            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_USER_NAME, Config.AUTHOR);
         }
         if(lineTxt.contains(TemplateItem.PARSEC_DATE)){
             lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_DATE,new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
@@ -66,10 +115,14 @@ public class XParseTemplate {
      */
     public interface TemplateItem{
         String TEMPLATE_ITEM_PREFIX = "PARSEC_";
+        String PARSEC_ENTITY_PACKAGE = "【PARSEC_ENTITY_PACKAGE】";
+        String PARSEC_MAPPER_PACKAGE = "【PARSEC_MAPPER_PACKAGE】";
+        String PARSEC_CONTROLLER_PACKAGE = "【PARSEC_CONTROLLER_PACKAGE】";
+        String PARSEC_SERVICE_PACKAGE = "【PARSEC_SERVICE_PACKAGE】";
         /**
          * 对象名称
          */
-        String PARSEC_OBJECT_NAME = "PARSEC_OBJECT_NAME";
+        String PARSEC_OBJECT_NAME = "【PARSEC_OBJECT_NAME】";
         /**
          * 首字母小写的，对象名称
          */

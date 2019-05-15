@@ -3,6 +3,7 @@ package com.xujiahong.codegenerator;
 import com.xujiahong.codegenerator.dao.CodeGenerateDao;
 import com.xujiahong.codegenerator.entity.XColumn;
 import com.xujiahong.codegenerator.entity.XTable;
+import com.xujiahong.codegenerator.template.CreateEntity;
 import com.xujiahong.codegenerator.tools.ParsecFileTools;
 import com.xujiahong.codegenerator.tools.XParseName;
 import com.xujiahong.codegenerator.tools.XParseTemplate;
@@ -27,7 +28,7 @@ public class CodeGenerator {
     static CodeGenerateDao dao;
     static SqlSession session;
 
-    static{
+    static {
         //读取配置
         String resource = "mybatis-config.xml";
         InputStream inputStream = null;
@@ -46,21 +47,17 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
-        Map<String,String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-//        map.put("tbl_sys_user","用户");
-//        map.put("tbl_sys_role","角色");
-        map.put("tbl_project","需求");
-        map.put("tbl_project_flow","需求进度");
+        map.put("tbl_user", "用户");
 
         Set<String> set = map.keySet();
-        for(String key : set){
+        for (String key : set) {
             //单表操作
-            XTable xTable = getTable(key,map.get(key));
+            XTable xTable = getTable(key, map.get(key));
             try {
-//                CreateTestJson.createJson(xTable);
                 createFile(xTable);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -68,108 +65,15 @@ public class CodeGenerator {
         session.close();
     }
 
-    public static void createFile(XTable xTable) throws Exception{
-
-        createPo(xTable);
-//        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", scan("parsec/POJO.txt",xTable));
-    }
-
-    public static StringBuffer scan(String path,XTable xTable) throws Exception{
-
-        String filePath = "src/main/java/com/xujiahong/codegenerator/template/"+path;
-
-        StringBuffer fileBuffer = new StringBuffer();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader
-                (new FileInputStream(new File(filePath)),"UTF-8"));
-
-        String lineTxt = null;
-        while ((lineTxt = br.readLine()) != null) {
-
-            if(lineTxt.contains(XParseTemplate.TemplateItem.TEMPLATE_ITEM_PREFIX)){
-                lineTxt = XParseTemplate.parse(lineTxt,xTable);
-            }
-            fileBuffer.append(lineTxt+"\n");
-        }
-        return fileBuffer;
-    }
-
-
-
     /**
-     * 创建实体
+     * 根据实际配置，生成各种文件
+     * @param xTable
+     * @throws Exception
      */
-    public static void createPo(XTable xTable) {
-        //装生成代码的buffer对象
-        StringBuffer codeBuffer = new StringBuffer();//整个文件的buffer
-        StringBuffer fieldBuffer = new StringBuffer();//field
-        StringBuffer getterAndSetterBuffer = new StringBuffer();//getter and setter
-        StringBuffer classCommentBuffer = new StringBuffer();//生成类的注释
-
-        /*
-        代码生成
-         */
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String now = sdf.format(new Date());
-        classCommentBuffer.append("\n/**\n" +
-                " * Created by AutoGenerateCode on " + now + ".\n" +
-                " * @author " + Config.AUTHOR + " \n" +
-                " */  \n");
-        fieldBuffer.append("\n\n");
-        getterAndSetterBuffer.append("\n\t// getter and setter\n\n");
-
-        List<XColumn> columns = xTable.getColumns();
-        for (XColumn column : columns) {
-            //field
-            /**
-             * 关键字ID
-             */
-            fieldBuffer.append("\t/**\n");
-            fieldBuffer.append("\t * "+column.getComment()+"\n");
-            fieldBuffer.append("\t */\n");
-            //swagger相关
-            if(Config.SWAGGER_ON){
-                fieldBuffer.append("\t@ApiModelProperty(value = \""+column.getComment()+"\")\n");
-            }
-            fieldBuffer.append("\tprivate " + column.getJavaFieldType() + " " + column.getJavaFieldName() + ";\n");
-            //getter and setter
-            getterAndSetterBuffer.append("\tpublic " + column.getJavaFieldType() + " get" + XParseName.toUpperCase(column
-                    .getJavaFieldName()) + "() {\n");
-            getterAndSetterBuffer.append("\t\treturn " + column.getJavaFieldName() + ";\n");
-            getterAndSetterBuffer.append("\t}\n");
-            getterAndSetterBuffer.append("\t\n");
-            getterAndSetterBuffer.append("\tpublic void set" + XParseName.toUpperCase(column.getJavaFieldName()) + "(" + column.getJavaFieldType() + " " + column.getJavaFieldName() + ") {\n");
-            getterAndSetterBuffer.append("\t\tthis." + column.getJavaFieldName() + " = " + column.getJavaFieldName() + ";\n");
-            getterAndSetterBuffer.append("\t}\n");
-            getterAndSetterBuffer.append("\t\n");
-        }
-
-        codeBuffer.append("package " + Config.PO_PACKAGE + ";\n\n");
-
-        //swagger相关
-        if(Config.SWAGGER_ON){
-            codeBuffer.append("import io.swagger.annotations.ApiModel;\n");
-            codeBuffer.append("import io.swagger.annotations.ApiModelProperty;\n");
-        }
-
-        codeBuffer.append(classCommentBuffer);
-
-        //swagger相关
-        if(Config.SWAGGER_ON){
-            codeBuffer.append("@ApiModel(value = \""+xTable.getPojoName()+"\", description = \""+
-                    xTable.getChName()+"\")\n");
-        }
-
-        codeBuffer.append("public class " + xTable.getPojoName() + " {");
-        codeBuffer.append(fieldBuffer);
-        codeBuffer.append(getterAndSetterBuffer);
-        codeBuffer.append("}");
-
-        //写入文件
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", codeBuffer);
-        System.out.println("=====POJO build success=====");
+    public static void createFile(XTable xTable) throws Exception {
+        CreateEntity.createEntity2019(xTable);
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt",xTable));
     }
-
 
     /**
      * 获取表信息
@@ -215,13 +119,14 @@ public class CodeGenerator {
 
     /**
      * 获取所有表信息
+     *
      * @return
      */
-    public static List<XTable> getAllTable(){
+    public static List<XTable> getAllTable() {
         List<XTable> list = new ArrayList<XTable>();
         List<String> tableNames = dao.showTables();
-        for(String tableName : tableNames){
-            XTable xTable = getTable(tableName,XParseName.parseNameToCamel(tableName));
+        for (String tableName : tableNames) {
+            XTable xTable = getTable(tableName, XParseName.parseNameToCamel(tableName));
             list.add(xTable);
         }
         return list;
