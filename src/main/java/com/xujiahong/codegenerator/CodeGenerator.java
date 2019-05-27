@@ -49,7 +49,18 @@ public class CodeGenerator {
 
         Map<String, String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("tbl_user", "用户");
+//        map.put("tbl_course", "课程");
+//        map.put("tbl_feedback", "意见反馈");
+//        map.put("tbl_lesson", "课时");
+//        map.put("tbl_lesson_watch", "课时观看记录");
+//        map.put("tbl_order", "订单");
+//        map.put("tbl_question", "题目");
+//        map.put("tbl_question_record", "答题记录");
+//        map.put("tbl_reward", "打赏");
+//        map.put("tbl_sign", "签到");
+//        map.put("tbl_user", "用户");
+
+        map.put("tbl_demo", "示例");
 
         Set<String> set = map.keySet();
         for (String key : set) {
@@ -71,8 +82,16 @@ public class CodeGenerator {
      * @throws Exception
      */
     public static void createFile(XTable xTable) throws Exception {
+        //生成实体
         CreateEntity.createEntity2019(xTable);
+        //生成Mapper
         ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt",xTable));
+        //生成Result返回对象
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Result.java", XParseTemplate.scan("parsec/Result.txt",xTable));
+        //生成PageResult返回对象
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "PageResult.java", XParseTemplate.scan("parsec/PageResult.txt",xTable));
+        //生成Controller
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/Controller.txt",xTable));
     }
 
     /**

@@ -1,0 +1,37 @@
+package 【PARSEC_RESULT_PACKAGE】;
+
+import com.github.pagehelper.PageInfo;
+import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@ApiModel
+public class 【PARSEC_OBJECT_NAME】PageResult extends CommonPageResult {
+
+    @ApiModelProperty("【PARSEC_OBJECT_CH_NAME】列表")
+    private List<【PARSEC_OBJECT_NAME】> 【PARSEC_LOWER_OBJECT_NAME】List;
+
+    public 【PARSEC_OBJECT_NAME】PageResult() {
+    }
+
+    public 【PARSEC_OBJECT_NAME】PageResult(PageInfo pageInfo, List<【PARSEC_OBJECT_NAME】> 【PARSEC_LOWER_OBJECT_NAME】List) {
+        super(pageInfo);
+        this.【PARSEC_LOWER_OBJECT_NAME】List = 【PARSEC_LOWER_OBJECT_NAME】List;
+    }
+
+    public 【PARSEC_OBJECT_NAME】PageResult(PageInfo pageInfo) {
+        super(pageInfo);
+    }
+
+    public 【PARSEC_OBJECT_NAME】PageResult(Integer code, String message) {
+        super(code, message);
+    }
+
+    public 【PARSEC_OBJECT_NAME】PageResult(Integer code, String message, PageInfo pageInfo) {
+        super(code, message, pageInfo);
+    }
+}

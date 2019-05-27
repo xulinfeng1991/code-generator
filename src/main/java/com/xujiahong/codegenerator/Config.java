@@ -8,15 +8,15 @@ package com.xujiahong.codegenerator;
 public class Config {
 
 
-
     //肯定要改的======================
     public static final String BASE_PACKAGE = "com.parsec.ceres";//项目基础包路径
-    public static final String ENTITY_PACKAGE = BASE_PACKAGE+".entity";//实体包路径
-    public static final String MAPPER_PACKAGE = BASE_PACKAGE+".mapper";//Mapper包路径
-    public static final String CONTROLLER_PACKAGE = BASE_PACKAGE+".controller";//控制器包路径
-    public static final String SERVICE_PACKAGE = BASE_PACKAGE+".service";//Service包路径
+    public static final String ENTITY_PACKAGE = BASE_PACKAGE + ".entity";//实体包路径
+    public static final String MAPPER_PACKAGE = BASE_PACKAGE + ".mapper";//Mapper包路径
+    public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + ".controller";//控制器包路径
+    public static final String SERVICE_PACKAGE = BASE_PACKAGE + ".service";//Service包路径
+    public static final String RESULT_PACKAGE = BASE_PACKAGE + ".result";//返回对象包路径
 
-    public static final String AUTHOR = "xujiahong";//开发者名称，生成注释用
+    public static final String AUTHOR = "parsec";//开发者名称，生成注释用
     /**
      * 生成文件存放路径
      * 为了避免错误的文件覆盖，建议将生成好的文件统一存放在桌面的一个临时文件夹，再拷贝到项目中。
@@ -35,7 +35,7 @@ public class Config {
     public static final String CURRENT_VERSION = "1.0";//当前版本号
 
 
-    public interface NamedFormat{
+    public interface NamedFormat {
         int UNDERLINE = 1;//下划线格式
         int CAMEL = 2;//驼峰格式
     }

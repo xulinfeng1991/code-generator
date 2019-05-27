@@ -1,0 +1,50 @@
+package 【PARSEC_CONTROLLER_PACKAGE】;
+
+import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
+import 【PARSEC_MAPPER_PACKAGE】.【PARSEC_OBJECT_NAME】Mapper;
+import 【PARSEC_RESULT_PACKAGE】.【PARSEC_OBJECT_NAME】Result;
+import 【PARSEC_RESULT_PACKAGE】.【PARSEC_OBJECT_NAME】PageResult;
+import com.parsec.ceres.result.CommonResult;
+import com.parsec.ceres.util.PageParam;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@Api(value = "【PARSEC_OBJECT_CH_NAME】控制器", tags = {"【PARSEC_OBJECT_CH_NAME】分组"})
+@RestController
+public class 【PARSEC_OBJECT_NAME】Controller {
+
+    @Autowired
+    【PARSEC_OBJECT_NAME】Mapper 【PARSEC_LOWER_OBJECT_NAME】Mapper;
+
+    @ApiOperation(value = "保存【PARSEC_OBJECT_CH_NAME】-开发中", notes = "标准保存接口")
+    @PostMapping("/【PARSEC_LOWER_OBJECT_NAME】/save")
+    public 【PARSEC_OBJECT_NAME】Result save(@RequestBody 【PARSEC_OBJECT_NAME】 【PARSEC_LOWER_OBJECT_NAME】) {
+        【PARSEC_OBJECT_NAME】Result result = new 【PARSEC_OBJECT_NAME】Result(CommonResult.CODE_FAIL, "接口开发中");
+        return result;
+    }
+    
+    @ApiOperation(value = "删除【PARSEC_OBJECT_CH_NAME】-开发中", notes = "根据ID删除")
+    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Long")
+    @DeleteMapping("/【PARSEC_LOWER_OBJECT_NAME】/delete")
+    public CommonResult delete(Long id) {
+        return CommonResult.returnFail("接口开发中");
+    }
+
+    @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】列表-开发中", notes = "查询【PARSEC_OBJECT_CH_NAME】列表")
+    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】/list")
+    public 【PARSEC_OBJECT_NAME】PageResult list(PageParam pageParam) {
+        【PARSEC_OBJECT_NAME】PageResult result = new 【PARSEC_OBJECT_NAME】PageResult(CommonResult.CODE_FAIL, "接口开发中");
+        return result;
+    }
+
+    @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】详情-开发中", notes = "根据ID查询详情")
+    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Long")
+    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】/detail")
+    public 【PARSEC_OBJECT_NAME】Result detail(Long id) {
+        【PARSEC_OBJECT_NAME】Result result = new 【PARSEC_OBJECT_NAME】Result(CommonResult.CODE_FAIL, "接口开发中");
+        return result;
+    }
+}

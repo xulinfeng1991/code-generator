@@ -23,6 +23,7 @@ public class XParseType {
 
         //其他
         typeMap.put("TINYINT", "Integer");
+        typeMap.put("TINYTEXT", "String");
         typeMap.put("TEXT", "String");
         typeMap.put("LONGTEXT", "String");
     }
