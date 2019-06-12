@@ -56,6 +56,9 @@ public class XParseTemplate {
     public static String parse(String lineTxt, XTable xTable) {
 
         /*各种包名解析*/
+        if (lineTxt.contains(TemplateItem.PARSEC_BASE_PACKAGE)) {
+            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_BASE_PACKAGE, Config.BASE_PACKAGE);
+        }
         if (lineTxt.contains(TemplateItem.PARSEC_ENTITY_PACKAGE)) {
             lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_ENTITY_PACKAGE, Config.ENTITY_PACKAGE);
         }
@@ -125,6 +128,7 @@ public class XParseTemplate {
         /*
          * 各种包名
          */
+        String PARSEC_BASE_PACKAGE = "【PARSEC_BASE_PACKAGE】";
         String PARSEC_ENTITY_PACKAGE = "【PARSEC_ENTITY_PACKAGE】";
         String PARSEC_MAPPER_PACKAGE = "【PARSEC_MAPPER_PACKAGE】";
         String PARSEC_CONTROLLER_PACKAGE = "【PARSEC_CONTROLLER_PACKAGE】";
