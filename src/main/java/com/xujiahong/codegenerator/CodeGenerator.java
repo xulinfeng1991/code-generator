@@ -49,12 +49,15 @@ public class CodeGenerator {
 
         Map<String, String> map = new HashMap<String, String>();
         //在此处添加需要生成代码的数据表
-        map.put("tbl_sys_user","用户");
-        map.put("tbl_sys_role","角色");
-        map.put("tbl_sys_menu","菜单");
-        map.put("tbl_sys_role_menu","角色菜单关联");
-        map.put("tbl_sys_log","日志");
-        map.put("tbl_policy","政策");
+        map.put("tbl_user","用户");
+        map.put("tbl_bargain","砍价记录");
+        map.put("tbl_bargain_code","核销码");
+        map.put("tbl_bargain_flow","砍价流水");
+//        map.put("tbl_sys_menu","菜单");
+//        map.put("tbl_sys_role_menu","角色菜单关联");
+//        map.put("tbl_sys_log","日志");
+//        map.put("tbl_policy","政策");
+
 
         Set<String> set = map.keySet();
         for (String key : set) {

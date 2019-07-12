@@ -9,7 +9,7 @@ public class Config {
 
 
     //肯定要改的======================
-    public static final String BASE_PACKAGE = "com.parsec.monoc";//项目基础包路径
+    public static final String BASE_PACKAGE = "com.parsec.relxBargainApi";//项目基础包路径
 
     //可能要改的======================
 
@@ -26,7 +26,6 @@ public class Config {
     public static final String MAPPER_PACKAGE = BASE_PACKAGE + ".mapper";//Mapper包路径
     public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + ".controller";//控制器包路径
     public static final String SERVICE_PACKAGE = BASE_PACKAGE + ".service";//Service包路径
-    public static final String RESULT_PACKAGE = BASE_PACKAGE + ".result";//返回对象包路径
 
     public static final String AUTHOR = "parsec";//开发者名称，生成注释用
 

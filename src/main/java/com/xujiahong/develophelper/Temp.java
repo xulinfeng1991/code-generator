@@ -1,5 +1,7 @@
 package com.xujiahong.develophelper;
 
+import com.xujiahong.codegenerator.CodeGenerator;
+
 /**
  * description
  *
@@ -9,13 +11,6 @@ package com.xujiahong.develophelper;
 public class Temp {
 
     public static void main(String[] args) {
-        String loopSwagger = "(abc),\n";
-        if (loopSwagger.length() > 0) {
-            if (loopSwagger.charAt(loopSwagger.length() - 2) == ',') {
-                loopSwagger = loopSwagger.substring(0, loopSwagger.length() - 2) + loopSwagger.substring(loopSwagger
-                        .length()-1);
-            }
-        }
-        System.out.println(loopSwagger);
+        System.out.println(CodeGenerator.getAllTable());
     }
 }

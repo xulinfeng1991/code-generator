@@ -26,6 +26,7 @@ public class XParseType {
         typeMap.put("TINYTEXT", "String");
         typeMap.put("TEXT", "String");
         typeMap.put("LONGTEXT", "String");
+        typeMap.put("JSON", "String");
     }
 
     /**

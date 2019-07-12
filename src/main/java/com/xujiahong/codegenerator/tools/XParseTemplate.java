@@ -71,9 +71,6 @@ public class XParseTemplate {
         if (lineTxt.contains(TemplateItem.PARSEC_SERVICE_PACKAGE)) {
             lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_SERVICE_PACKAGE, Config.SERVICE_PACKAGE);
         }
-        if (lineTxt.contains(TemplateItem.PARSEC_RESULT_PACKAGE)) {
-            lineTxt = lineTxt.replaceAll(TemplateItem.PARSEC_RESULT_PACKAGE, Config.RESULT_PACKAGE);
-        }
 
 
         if (lineTxt.contains(TemplateItem.PARSEC_USER_NAME)) {
@@ -133,7 +130,6 @@ public class XParseTemplate {
         String PARSEC_MAPPER_PACKAGE = "【PARSEC_MAPPER_PACKAGE】";
         String PARSEC_CONTROLLER_PACKAGE = "【PARSEC_CONTROLLER_PACKAGE】";
         String PARSEC_SERVICE_PACKAGE = "【PARSEC_SERVICE_PACKAGE】";
-        String PARSEC_RESULT_PACKAGE = "【PARSEC_RESULT_PACKAGE】";
 
         /**
          * 对象名称

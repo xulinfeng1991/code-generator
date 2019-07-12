@@ -89,4 +89,14 @@ public class XTable {
     public void setColumns(List<XColumn> columns) {
         this.columns = columns;
     }
+
+    @Override
+    public String toString() {
+        return "XTable{" +
+                "tableName='" + tableName + '\'' +
+                ", pojoName='" + pojoName + '\'' +
+                ", chName='" + chName + '\'' +
+                ", columns=" + columns +
+                '}';
+    }
 }
