@@ -39,13 +39,13 @@ public class CreateEntity {
             /**
              * 关键字ID
              */
-            if(column.getJavaFieldName().equals("id")){
+            if (column.getJavaFieldName().equals("id")) {
                 fieldBuffer.append("\t@Id\n");
                 fieldBuffer.append("\t@KeySql(useGeneratedKeys = true)\n");
             }
             //swagger相关
-            if(Config.SWAGGER_ON){
-                fieldBuffer.append("\t@ApiModelProperty(value = \""+column.getComment()+"\")\n");
+            if (Config.SWAGGER_ON) {
+                fieldBuffer.append("\t@ApiModelProperty(value = \"" + column.getComment() + "\")\n");
             }
             fieldBuffer.append("\tprivate " + column.getJavaFieldType() + " " + column.getJavaFieldName() + ";\n\n");
         }
@@ -53,7 +53,7 @@ public class CreateEntity {
         codeBuffer.append("package " + Config.ENTITY_PACKAGE + ";\n\n");
 
         //swagger相关
-        if(Config.SWAGGER_ON){
+        if (Config.SWAGGER_ON) {
             codeBuffer.append("import io.swagger.annotations.ApiModel;\n");
             codeBuffer.append("import io.swagger.annotations.ApiModelProperty;\n");
 
@@ -71,12 +71,12 @@ public class CreateEntity {
         codeBuffer.append("@Data\n");
         codeBuffer.append("@Accessors(chain = true)\n");
         codeBuffer.append("@EqualsAndHashCode(callSuper = false)\n");
-        codeBuffer.append("@Table(name = \""+xTable.getTableName()+"\")\n");
+        codeBuffer.append("@Table(name = \"" + xTable.getTableName() + "\")\n");
 
         //swagger相关
-        if(Config.SWAGGER_ON){
-            codeBuffer.append("@ApiModel(value = \""+xTable.getPojoName()+"\", description = \""+
-                    xTable.getChName()+"\")\n");
+        if (Config.SWAGGER_ON) {
+            codeBuffer.append("@ApiModel(value = \"" + xTable.getPojoName() + " | " + xTable.getChName()
+                    + "\", description = \"" + xTable.getChName() + "\")\n");
         }
 
         codeBuffer.append("public class " + xTable.getPojoName() + " {");
@@ -117,11 +117,11 @@ public class CreateEntity {
              * 关键字ID
              */
             fieldBuffer.append("\t/**\n");
-            fieldBuffer.append("\t * "+column.getComment()+"\n");
+            fieldBuffer.append("\t * " + column.getComment() + "\n");
             fieldBuffer.append("\t */\n");
             //swagger相关
-            if(Config.SWAGGER_ON){
-                fieldBuffer.append("\t@ApiModelProperty(value = \""+column.getComment()+"\")\n");
+            if (Config.SWAGGER_ON) {
+                fieldBuffer.append("\t@ApiModelProperty(value = \"" + column.getComment() + "\")\n");
             }
             fieldBuffer.append("\tprivate " + column.getJavaFieldType() + " " + column.getJavaFieldName() + ";\n");
             //getter and setter
@@ -139,7 +139,7 @@ public class CreateEntity {
         codeBuffer.append("package " + Config.ENTITY_PACKAGE + ";\n\n");
 
         //swagger相关
-        if(Config.SWAGGER_ON){
+        if (Config.SWAGGER_ON) {
             codeBuffer.append("import io.swagger.annotations.ApiModel;\n");
             codeBuffer.append("import io.swagger.annotations.ApiModelProperty;\n");
         }
@@ -147,9 +147,9 @@ public class CreateEntity {
         codeBuffer.append(classCommentBuffer);
 
         //swagger相关
-        if(Config.SWAGGER_ON){
-            codeBuffer.append("@ApiModel(value = \""+xTable.getPojoName()+"\", description = \""+
-                    xTable.getChName()+"\")\n");
+        if (Config.SWAGGER_ON) {
+            codeBuffer.append("@ApiModel(value = \"" + xTable.getPojoName() + "\", description = \"" +
+                    xTable.getChName() + "\")\n");
         }
 
         codeBuffer.append("public class " + xTable.getPojoName() + " {");

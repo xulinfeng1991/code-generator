@@ -27,6 +27,8 @@ public class XParseType {
         typeMap.put("TEXT", "String");
         typeMap.put("LONGTEXT", "String");
         typeMap.put("JSON", "String");
+        typeMap.put("ENUM", "String");
+
     }
 
     /**
@@ -48,7 +50,8 @@ public class XParseType {
     public static String parseTypeToJava(String dbType) {
         dbType = parseType(dbType);
         if (!typeMap.keySet().contains(dbType)) {
-            throw new IllegalArgumentException("未找到 【" + dbType + "】 对应的Java类型映射");
+            System.out.println("未找到 【" + dbType + "】 对应的Java类型映射");
+            return "String";
         }
         return typeMap.get(dbType);
     }

@@ -29,29 +29,35 @@ public class XTable {
      */
     private List<XColumn> columns;
 
-    private XTable(){}
+    private XTable() {
+    }
 
     public XTable(String tableName, String chName, List<XColumn> columns) {
         this.tableName = tableName;
-        this.pojoName = XParseName.toUpperCase(XParseName.parseNameToCamel(tableName.replace(Config.TABLE_PROFIX,"")));
+        String nonePrefixTableName = tableName;
+        for (String s : Config.TABLE_PREFIX) {
+            nonePrefixTableName = nonePrefixTableName.replace(s, "");
+        }
+        this.pojoName = XParseName.toUpperCase(XParseName.parseNameToCamel(nonePrefixTableName));
         this.chName = chName;
         this.columns = columns;
     }
 
     /**
      * 通过ID字段名称获取ID字段类型
+     *
      * @param idColumnJavaName
      * @return
      */
-    public String getIdColumnJavaType(String idColumnJavaName){
-        if(idColumnJavaName==null || "".equals(idColumnJavaName)){
+    public String getIdColumnJavaType(String idColumnJavaName) {
+        if (idColumnJavaName == null || "".equals(idColumnJavaName)) {
             return null;
         }
-        if(this.columns.size()==0){
+        if (this.columns.size() == 0) {
             return null;
         }
-        for(XColumn xColumn : this.columns){
-            if(idColumnJavaName.equals(xColumn.getJavaFieldName())){
+        for (XColumn xColumn : this.columns) {
+            if (idColumnJavaName.equals(xColumn.getJavaFieldName())) {
                 return xColumn.getJavaFieldType();
             }
         }

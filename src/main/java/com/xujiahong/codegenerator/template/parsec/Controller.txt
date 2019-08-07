@@ -1,16 +1,18 @@
 package 【PARSEC_CONTROLLER_PACKAGE】;
 
+import com.github.pagehelper.PageHelper;
 import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
 import 【PARSEC_MAPPER_PACKAGE】.【PARSEC_OBJECT_NAME】Mapper;
-import 【PARSEC_BASE_PACKAGE】.result.CommonPageResult;
-import 【PARSEC_BASE_PACKAGE】.result.CommonResult;
-import 【PARSEC_BASE_PACKAGE】.result.PageParam;
+import com.parsec.universal.page.CommonPageInfo;
+import com.parsec.universal.page.PageParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @Api(value = "【PARSEC_OBJECT_CH_NAME】控制器", tags = {"【PARSEC_OBJECT_CH_NAME】分组"})
 @RestController
@@ -20,35 +22,35 @@ public class 【PARSEC_OBJECT_NAME】Controller {
     【PARSEC_OBJECT_NAME】Mapper 【PARSEC_LOWER_OBJECT_NAME】Mapper;
 
     @ApiIgnore
-    @ApiOperation(value = "保存【PARSEC_OBJECT_CH_NAME】", notes = "标准保存接口")
-    @PostMapping("/【PARSEC_LOWER_OBJECT_NAME】/save")
-    public CommonResult<【PARSEC_OBJECT_NAME】> save(@RequestBody 【PARSEC_OBJECT_NAME】 【PARSEC_LOWER_OBJECT_NAME】) {
-        CommonResult result = new CommonResult(CommonResult.CODE_FAIL, "接口开发中");
-        return result;
+    @ApiOperation(value = "保存【PARSEC_OBJECT_CH_NAME】", notes = "标准保存接口（根据id字段新增或修改）")
+    @PostMapping("/【PARSEC_LOWER_OBJECT_NAME】")
+    public 【PARSEC_OBJECT_NAME】 save(@RequestBody 【PARSEC_OBJECT_NAME】 【PARSEC_LOWER_OBJECT_NAME】) {
+        throw new IllegalArgumentException("接口开发中");
     }
 
     @ApiIgnore
     @ApiOperation(value = "删除【PARSEC_OBJECT_CH_NAME】", notes = "标准删除接口")
-    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer")
-    @DeleteMapping("/【PARSEC_LOWER_OBJECT_NAME】/delete")
-    public CommonResult delete(Integer id) {
-        return CommonResult.returnFail("接口开发中");
+    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer", paramType = "path")
+    @DeleteMapping("/【PARSEC_LOWER_OBJECT_NAME】/{id}")
+    public void delete(@PathVariable Integer id) {
+        throw new IllegalArgumentException("接口开发中");
     }
 
     @ApiIgnore
     @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】列表", notes = "标准分页列表接口")
-    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】/list")
-    public CommonPageResult<【PARSEC_OBJECT_NAME】> list(PageParam pageParam) {
-        CommonPageResult result = new CommonPageResult(CommonResult.CODE_FAIL, "接口开发中");
-        return result;
+    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】")
+    public CommonPageInfo<【PARSEC_OBJECT_NAME】> list(PageParam pageParam) {
+        PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
+        List<【PARSEC_OBJECT_NAME】> list = 【PARSEC_LOWER_OBJECT_NAME】Mapper.selectAll();
+        return new CommonPageInfo<>(list);
     }
 
     @ApiIgnore
     @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】详情", notes = "标准详情接口")
-    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer")
-    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】/detail")
-    public CommonResult<【PARSEC_OBJECT_NAME】> detail(Integer id) {
-        CommonResult result = new CommonResult(CommonResult.CODE_FAIL, "接口开发中");
-        return result;
+    @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer", paramType = "path")
+    @GetMapping("/【PARSEC_LOWER_OBJECT_NAME】/{id}")
+    public 【PARSEC_OBJECT_NAME】 detail(@PathVariable Integer id) {
+        【PARSEC_OBJECT_NAME】 db【PARSEC_OBJECT_NAME】 = 【PARSEC_LOWER_OBJECT_NAME】Mapper.selectByPrimaryKey(id);
+        return db【PARSEC_OBJECT_NAME】;
     }
 }
