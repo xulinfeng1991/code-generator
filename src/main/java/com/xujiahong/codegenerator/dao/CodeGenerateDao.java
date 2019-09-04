@@ -22,4 +22,10 @@ public interface CodeGenerateDao {
      */
     List<String> showTables();
 
+    /**
+     * 查询所有表名以及表注释
+     * @return
+     */
+    List<Map<String,String>> selectTables(String databaseName);
+
 }

@@ -1,4 +1,4 @@
-package 【PARSEC_CONTROLLER_PACKAGE】;
+package 【PARSEC_CONTROLLER_PACKAGE】.mgr;
 
 import com.github.pagehelper.PageHelper;
 import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
@@ -15,9 +15,9 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
-@Api(value = "【PARSEC_OBJECT_CH_NAME】控制器", tags = {"【PARSEC_OBJECT_CH_NAME】分组"})
+@Api(value = "【PARSEC_OBJECT_CH_NAME】控制器", tags = {"MGR/【PARSEC_OBJECT_CH_NAME】"})
 @RestController
-public class 【PARSEC_OBJECT_NAME】Controller {
+public class 【PARSEC_OBJECT_NAME】MgrController {
 
     @Autowired
     【PARSEC_OBJECT_NAME】Mapper 【PARSEC_LOWER_OBJECT_NAME】Mapper;

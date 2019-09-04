@@ -10,4 +10,8 @@
         show tables;
     </select>
 
+    <select id="selectTables" resultType="map" parameterType="java.lang.String">
+        SELECT `TABLE_NAME` AS tableName,`TABLE_COMMENT` AS tableComment FROM information_schema.TABLES WHERE table_schema=#{value};
+    </select>
+
 </mapper>

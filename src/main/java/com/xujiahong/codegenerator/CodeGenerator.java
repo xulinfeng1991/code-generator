@@ -1,5 +1,6 @@
 package com.xujiahong.codegenerator;
 
+import com.mysql.jdbc.StringUtils;
 import com.xujiahong.codegenerator.dao.CodeGenerateDao;
 import com.xujiahong.codegenerator.entity.XColumn;
 import com.xujiahong.codegenerator.entity.XTable;
@@ -47,23 +48,9 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
-        Map<String, String> map = new HashMap<String, String>();
-        //在此处添加需要生成代码的数据表
-        map.put("bi_channel","渠道");
-        map.put("bi_goods","商品");
-        map.put("bi_order","订单");
-        map.put("bi_sync_log","同步日志");
-        map.put("bi_user","用户");
-        map.put("bi_user_coupon","优惠券");
-        map.put("bi_user_daily","日常访问");
-        map.put("bi_user_tag","用户标记");
-        map.put("bi_wechat_user","微信用户");
-
-
-        Set<String> set = map.keySet();
-        for (String key : set) {
-            //单表操作
-            XTable xTable = getTable(key, map.get(key));
+        //====================整库生成====================
+        List<XTable> tables = getAllTable();
+        for (XTable xTable : tables) {
             try {
                 createFile(xTable);
             } catch (Exception e) {
@@ -71,11 +58,29 @@ public class CodeGenerator {
             }
         }
 
+        //====================单独配置表====================
+//        Map<String, String> map = new HashMap<String, String>();
+//        //在此处添加需要生成代码的数据表
+//        map.put("tbl_case", "病例");
+//
+//
+//        Set<String> set = map.keySet();
+//        for (String key : set) {
+//            //单表操作
+//            XTable xTable = getTable(key, map.get(key));
+//            try {
+//                createFile(xTable);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         session.close();
     }
 
     /**
      * 根据实际配置，生成各种文件
+     *
      * @param xTable
      * @throws Exception
      */
@@ -83,9 +88,11 @@ public class CodeGenerator {
         //生成实体
         CreateEntity.createEntity2019(xTable);
         //生成Mapper
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt",xTable));
-        //生成Controller
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/Controller.txt",xTable));
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt", xTable));
+        //生成ApiController
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "ApiController.java", XParseTemplate.scan("parsec/ApiController.txt", xTable));
+        //生成MgrController
+        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "MgrController.java", XParseTemplate.scan("parsec/MgrController.txt", xTable));
     }
 
     /**
@@ -137,9 +144,17 @@ public class CodeGenerator {
      */
     public static List<XTable> getAllTable() {
         List<XTable> list = new ArrayList<XTable>();
-        List<String> tableNames = dao.showTables();
-        for (String tableName : tableNames) {
-            XTable xTable = getTable(tableName, XParseName.parseNameToCamel(tableName));
+        List<Map<String, String>> tables = dao.selectTables(Config.DATABASE_NAME);
+        for (Map<String, String> map : tables) {
+            String tableName = map.get("tableName");
+            String tableComment = map.get("tableComment");
+            if (tableComment == null || "".equals(tableComment)) {
+                tableComment = tableName;
+            }
+            if (tableName.equals("tbl_acl") || tableName.equals("tbl_directory")) {
+                continue;
+            }
+            XTable xTable = getTable(tableName, tableComment);
             list.add(xTable);
         }
         return list;

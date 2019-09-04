@@ -9,7 +9,8 @@ public class Config {
 
 
     //肯定要改的======================
-    public static final String BASE_PACKAGE = "com.parsec.bi";//项目基础包路径
+    public static final String BASE_PACKAGE = "com.parsec.snakebite";//项目基础包路径
+    public static final String DATABASE_NAME = "snakebite_stg";
 
     //可能要改的======================
 
