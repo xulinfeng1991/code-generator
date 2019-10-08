@@ -1,4 +1,4 @@
-package 【PARSEC_CONTROLLER_PACKAGE】.mgr;
+package 【PARSEC_CONTROLLER_PACKAGE】.manager;
 
 import com.github.pagehelper.PageHelper;
 import 【PARSEC_ENTITY_PACKAGE】.【PARSEC_OBJECT_NAME】;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api(value = "【PARSEC_OBJECT_CH_NAME】控制器", tags = {"MGR/【PARSEC_OBJECT_CH_NAME】"})
 @RestController
-public class 【PARSEC_OBJECT_NAME】MgrController {
+public class 【PARSEC_OBJECT_NAME】ManagerController {
 
     @Autowired
     【PARSEC_OBJECT_NAME】Mapper 【PARSEC_LOWER_OBJECT_NAME】Mapper;

@@ -104,7 +104,7 @@ public class CodeGenerator {
             System.out.println("创建 controller/api/ 文件存放路径为："+ API_CONTROLLER_FILE_PATH);
         }
 
-        ParsecFileTools.writeFile(API_CONTROLLER_FILE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/ApiController.txt", xTable));
+        ParsecFileTools.writeFile(API_CONTROLLER_FILE_PATH + xTable.getPojoName() + "ApiController.java", XParseTemplate.scan("parsec/ApiController.txt", xTable));
         //生成MgrController
         String MANAGER_CONTROLLER_FILE_PATH = Config.CODE_PATH + "controller/manager/";
         File managerControllerPath = new File( MAPPER_FILE_PATH );
@@ -112,7 +112,7 @@ public class CodeGenerator {
             managerControllerPath.mkdir();
             System.out.println("创建 controller/manager/ 文件存放路径为："+ MANAGER_CONTROLLER_FILE_PATH);
         }
-        ParsecFileTools.writeFile(MANAGER_CONTROLLER_FILE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/MgrController.txt", xTable));
+        ParsecFileTools.writeFile(MANAGER_CONTROLLER_FILE_PATH + xTable.getPojoName() + "ManagerController.java", XParseTemplate.scan("parsec/MgrController.txt", xTable));
     }
 
     /**
