@@ -85,14 +85,34 @@ public class CodeGenerator {
      * @throws Exception
      */
     public static void createFile(XTable xTable) throws Exception {
+
         //生成实体
         CreateEntity.createEntity2019(xTable);
         //生成Mapper
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt", xTable));
+        String MAPPER_FILE_PATH = Config.CODE_PATH + "mapper/";
+        File mapperPath = new File( MAPPER_FILE_PATH );
+        if ( !mapperPath.exists()){//若此目录不存在，则创建之
+            mapperPath.mkdir();
+            System.out.println("创建 mapper 文件存放路径为："+ MAPPER_FILE_PATH);
+        }
+        ParsecFileTools.writeFile(MAPPER_FILE_PATH + xTable.getPojoName() + "Mapper.java", XParseTemplate.scan("parsec/Mapper.txt", xTable));
         //生成ApiController
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "ApiController.java", XParseTemplate.scan("parsec/ApiController.txt", xTable));
+        String API_CONTROLLER_FILE_PATH = Config.CODE_PATH + "controller/api/";
+        File apiControllerPath = new File( MAPPER_FILE_PATH );
+        if ( !apiControllerPath.exists()){//若此目录不存在，则创建之
+            apiControllerPath.mkdir();
+            System.out.println("创建 controller/api/ 文件存放路径为："+ API_CONTROLLER_FILE_PATH);
+        }
+
+        ParsecFileTools.writeFile(API_CONTROLLER_FILE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/ApiController.txt", xTable));
         //生成MgrController
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + "MgrController.java", XParseTemplate.scan("parsec/MgrController.txt", xTable));
+        String MANAGER_CONTROLLER_FILE_PATH = Config.CODE_PATH + "controller/manager/";
+        File managerControllerPath = new File( MAPPER_FILE_PATH );
+        if ( !managerControllerPath.exists()){//若此目录不存在，则创建之
+            managerControllerPath.mkdir();
+            System.out.println("创建 controller/manager/ 文件存放路径为："+ MANAGER_CONTROLLER_FILE_PATH);
+        }
+        ParsecFileTools.writeFile(MANAGER_CONTROLLER_FILE_PATH + xTable.getPojoName() + "Controller.java", XParseTemplate.scan("parsec/MgrController.txt", xTable));
     }
 
     /**
