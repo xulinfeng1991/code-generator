@@ -9,8 +9,8 @@ public class Config {
 
 
     //肯定要改的======================
-    public static final String BASE_PACKAGE = "com.parsec.snakebite";//项目基础包路径
-    public static final String DATABASE_NAME = "snakebite_stg";
+    public static final String BASE_PACKAGE = "com.parsec.relxzshd";//项目基础包路径
+    public static final String DATABASE_NAME = "ztest_relx_zshd";//准确的数据库名称，如：“database”，用于查询所有数据库表
 
     //可能要改的======================
 
@@ -31,7 +31,7 @@ public class Config {
     public static final String AUTHOR = "parsec";//开发者名称，生成注释用
 
     public static final int NAMED_FORMAT = NamedFormat.UNDERLINE;//数据表字段的命名方式（默认下划线）
-    public static final String[] TABLE_PREFIX = {"tbl_","bi_"};//表名前缀（不计入对象名称中）
+    public static final String[] TABLE_PREFIX = {"tbl_", "bi_"};//表名前缀（不计入对象名称中）
 
     public static final String TABLE_ID = "id";//数据库表的主键字段，默认是id
     public static final boolean USE_GENERATED_KEYS = true;//是否有采用自增主键，默认true
@@ -40,8 +40,10 @@ public class Config {
     public static final String CURRENT_VERSION = "1.0";//当前版本号
 
 
+    /**
+     * 数据表字段的命名方式
+     */
     public interface NamedFormat {
-        int UNDERLINE = 1;//下划线格式
-        int CAMEL = 2;//驼峰格式
+        int UNDERLINE = 1;//下划线格式（兼容驼峰）
     }
 }
