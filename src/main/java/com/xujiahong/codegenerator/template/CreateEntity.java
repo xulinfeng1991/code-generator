@@ -6,7 +6,6 @@ import com.xujiahong.codegenerator.entity.XTable;
 import com.xujiahong.codegenerator.tools.ParsecFileTools;
 import com.xujiahong.codegenerator.tools.XParseName;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,14 +83,8 @@ public class CreateEntity {
         codeBuffer.append(fieldBuffer);
         codeBuffer.append("}");
 
-        String ENTITY_FILE_PATH = Config.CODE_PATH + "entity/";// 实体类文件存放路径
-        File entityPath = new File( ENTITY_FILE_PATH );
-        if ( !entityPath.exists()){//若此目录不存在，则创建之
-            entityPath.mkdir();
-            System.out.println("创建实体类文件存放路径为："+ ENTITY_FILE_PATH);
-        }
         //写入文件
-        ParsecFileTools.writeFile(ENTITY_FILE_PATH + xTable.getPojoName() + ".java", codeBuffer);
+        ParsecFileTools.writeFile(Config.CODE_PATH + "entity/" + xTable.getPojoName() + ".java", codeBuffer);
         System.out.println("=====POJO build success=====");
     }
 
@@ -165,7 +158,7 @@ public class CreateEntity {
         codeBuffer.append("}");
 
         //写入文件
-        ParsecFileTools.writeFile(Config.CODE_PATH + xTable.getPojoName() + ".java", codeBuffer);
+        ParsecFileTools.writeFile(Config.CODE_PATH + "entity/" + xTable.getPojoName() + ".java", codeBuffer);
         System.out.println("=====POJO build success=====");
     }
 }

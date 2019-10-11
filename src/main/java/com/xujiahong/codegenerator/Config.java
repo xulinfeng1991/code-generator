@@ -10,7 +10,7 @@ public class Config {
 
     //肯定要改的======================
     public static final String BASE_PACKAGE = "com.parsec.relxzshd";//项目基础包路径
-    public static final String DATABASE_NAME = "ztest_relx_zshd";//准确的数据库名称，如：“database”，用于查询所有数据库表
+    public static final String DATABASE_NAME = "relxzshd";//准确的数据库名称，如：“database”，用于查询所有数据库表
 
     //可能要改的======================
 
