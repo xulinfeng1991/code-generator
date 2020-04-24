@@ -15,7 +15,9 @@ public class XParseType {
         //常用
         typeMap.put("INT", "Integer");
         typeMap.put("BIGINT", "Long");
-        typeMap.put("DOUBLE", "Long");
+        typeMap.put("FLOAT", "Double");
+        typeMap.put("DOUBLE", "Double");
+        typeMap.put("DECIMAL", "Double");
         typeMap.put("VARCHAR", "String");
         typeMap.put("DATE", "LocalDateTime");
         typeMap.put("DATETIME", "LocalDateTime");

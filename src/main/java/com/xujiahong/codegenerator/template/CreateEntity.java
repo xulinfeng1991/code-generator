@@ -75,8 +75,7 @@ public class CreateEntity {
 
         //swagger相关
         if (Config.SWAGGER_ON) {
-            codeBuffer.append("@ApiModel(value = \"" + xTable.getPojoName() + " | " + xTable.getChName()
-                    + "\", description = \"" + xTable.getChName() + "\")\n");
+            codeBuffer.append("@ApiModel(description = \"" + xTable.getChName() + "\")\n");
         }
 
         codeBuffer.append("public class " + xTable.getPojoName() + " {");
@@ -85,7 +84,7 @@ public class CreateEntity {
 
         //写入文件
         ParsecFileTools.writeFile(Config.CODE_PATH + "entity/" + xTable.getPojoName() + ".java", codeBuffer);
-        System.out.println("=====POJO build success=====");
+//        System.out.println("=====POJO build success=====");
     }
 
     /**

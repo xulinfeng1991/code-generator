@@ -25,7 +25,7 @@ public class 【PARSEC_OBJECT_NAME】MgrController {
     @ApiIgnore
     @ApiOperation(value = "保存【PARSEC_OBJECT_CH_NAME】", notes = "标准保存接口（根据id字段新增或修改）")
     @PostMapping("/mgr/【PARSEC_LOWER_OBJECT_NAME】")
-    public 【PARSEC_OBJECT_NAME】 save(@RequestBody 【PARSEC_OBJECT_NAME】 【PARSEC_LOWER_OBJECT_NAME】) {
+    public 【PARSEC_OBJECT_NAME】 save【PARSEC_OBJECT_NAME】(@RequestBody 【PARSEC_OBJECT_NAME】 【PARSEC_LOWER_OBJECT_NAME】) {
         if (【PARSEC_LOWER_OBJECT_NAME】.getId() == null) {
             //新增
             【PARSEC_LOWER_OBJECT_NAME】Mapper.insertSelective(【PARSEC_LOWER_OBJECT_NAME】);
@@ -40,14 +40,14 @@ public class 【PARSEC_OBJECT_NAME】MgrController {
     @ApiOperation(value = "删除【PARSEC_OBJECT_CH_NAME】", notes = "标准删除接口")
     @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer", paramType = "path")
     @DeleteMapping("/mgr/【PARSEC_LOWER_OBJECT_NAME】/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete【PARSEC_OBJECT_NAME】(@PathVariable Integer id) {
         throw new BadRequestException("接口开发中");
     }
 
     @ApiIgnore
     @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】列表", notes = "标准分页列表接口")
     @GetMapping("/mgr/【PARSEC_LOWER_OBJECT_NAME】")
-    public CommonPageInfo<【PARSEC_OBJECT_NAME】> list(PageParam pageParam) {
+    public CommonPageInfo<【PARSEC_OBJECT_NAME】> list【PARSEC_OBJECT_NAME】(PageParam pageParam) {
         PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
         List<【PARSEC_OBJECT_NAME】> list = 【PARSEC_LOWER_OBJECT_NAME】Mapper.selectAll();
         return new CommonPageInfo<>(list);
@@ -57,7 +57,7 @@ public class 【PARSEC_OBJECT_NAME】MgrController {
     @ApiOperation(value = "查询【PARSEC_OBJECT_CH_NAME】详情", notes = "标准详情接口")
     @ApiImplicitParam(name = "id", value = "【PARSEC_OBJECT_CH_NAME】ID", required = true, dataType = "Integer", paramType = "path")
     @GetMapping("/mgr/【PARSEC_LOWER_OBJECT_NAME】/{id}")
-    public 【PARSEC_OBJECT_NAME】 detail(@PathVariable Integer id) {
+    public 【PARSEC_OBJECT_NAME】 detail【PARSEC_OBJECT_NAME】(@PathVariable Integer id) {
         【PARSEC_OBJECT_NAME】 db【PARSEC_OBJECT_NAME】 = 【PARSEC_LOWER_OBJECT_NAME】Mapper.selectByPrimaryKey(id);
         return db【PARSEC_OBJECT_NAME】;
     }
