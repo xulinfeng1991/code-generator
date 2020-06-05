@@ -16,5 +16,7 @@
 ## 操作步骤
 
 （1）在resources/mysql.properties中配置自己的数据库环境（目前只支持mysql）
+
 （2）在Config配置类中定义更多的细节
+
 （3）使用CodeGenerator生成代码
